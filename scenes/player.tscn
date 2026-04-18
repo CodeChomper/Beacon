@@ -19,7 +19,7 @@ texture_filter = 1
 energy = 0.8
 shadow_enabled = true
 texture = ExtResource("2_tex")
-texture_scale = 0.15
+texture_scale = 0.3
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(2.5, 2.5)
