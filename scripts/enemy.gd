@@ -2,7 +2,7 @@ extends CharacterBody2D
 
 enum State { IDLE, ALERTED, WALKING_TO_PING, WAITING, RETURNING }
 
-const WALK_SPEED: float = 70.0
+const WALK_SPEED: float = 60.0
 const WAIT_DURATION: float = 2.5
 const ARRIVAL_THRESHOLD: float = 8.0
 const WALK_TIMEOUT: float = 6.0
@@ -12,16 +12,18 @@ var home_position: Vector2
 var ping_origin: Vector2
 var wait_timer: float = 0.0
 var walk_timer: float = 0.0
+var player: CharacterBody2D
 
 @onready var enemy_light: PointLight2D = $EnemyLight
 @onready var player_detect: Area2D = $PlayerDetect
 
 
 func _ready() -> void:
+	await get_tree().process_frame
 	home_position = global_position
+	player = get_tree().get_first_node_in_group("player")
 	add_to_group("enemies")
 	player_detect.body_entered.connect(_on_player_detect_body_entered)
-
 
 func _physics_process(delta: float) -> void:
 	match state:
@@ -30,6 +32,7 @@ func _physics_process(delta: float) -> void:
 		State.ALERTED:
 			state = State.WALKING_TO_PING
 		State.WALKING_TO_PING:
+			ping_origin = player.global_position
 			walk_timer += delta
 			if walk_timer >= WALK_TIMEOUT:
 				state = State.WAITING
