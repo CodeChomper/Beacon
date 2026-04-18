@@ -1,0 +1,25 @@
+# Godot 4+ specific ignores
+.godot/
+
+# Godot 3 specific ignores (if applicable)
+.import/
+
+# Imported assets (optional but recommended for large binary assets)
+# Most users track .import files but ignore the .import/ folder
+# *.import
+
+# Exported binaries
+# Replace "builds/" with your actual export folder name
+builds/
+export/
+
+# Project-specific local settings
+# Note: export_presets.cfg should be tracked, but see note below
+export_presets.cfg.local
+
+# Mono/C# specific (if using the .NET version)
+.mono/
+bin/
+obj/
+*.csproj
+*.sln

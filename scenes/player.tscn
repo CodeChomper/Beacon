@@ -1,0 +1,37 @@
+[gd_scene load_steps=6 format=3 uid="uid://c4fl741ovvkx3"]
+
+[ext_resource type="Script" path="res://scripts/player.gd" id="1_player"]
+[ext_resource type="Texture2D" uid="uid://ci5jfjl5w3k62" path="res://assets/light_white.png" id="2_tex"]
+[ext_resource type="Texture2D" uid="uid://dti8im4mjgi12" path="res://assets/tiles/player.png" id="3_lviwp"]
+[ext_resource type="AudioStream" uid="uid://dwklrco5nik1n" path="res://assets/sounds/death.wav" id="4_bipnk"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_body"]
+radius = 5.0
+
+[node name="Player" type="CharacterBody2D"]
+script = ExtResource("1_player")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_body")
+
+[node name="PlayerLight" type="PointLight2D" parent="."]
+texture_filter = 1
+energy = 0.8
+shadow_enabled = true
+texture = ExtResource("2_tex")
+texture_scale = 0.15
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(2.5, 2.5)
+
+[node name="PingCooldownTimer" type="Timer" parent="."]
+wait_time = 1.5
+one_shot = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("3_lviwp")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_bipnk")
+
+[connection signal="timeout" from="PingCooldownTimer" to="." method="_on_ping_cooldown_timer_timeout"]
