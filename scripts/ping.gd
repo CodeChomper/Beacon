@@ -9,6 +9,7 @@ const MAX_TEXTURE_SCALE: float = 3.5
 @onready var collision_shape: CollisionShape2D = $RingArea/CollisionShape2D
 @onready var sound: AudioStreamPlayer2D = $AudioStreamPlayer2D
 
+var play_sound: bool = true
 
 func _ready() -> void:
 	ring_area.body_entered.connect(_on_ring_area_body_entered)
@@ -16,7 +17,7 @@ func _ready() -> void:
 
 
 func _start_expand() -> void:
-	sound.play(0.0)
+	if play_sound: sound.play(0.0)
 	var tween: Tween = create_tween().set_parallel(true)
 	tween.tween_property(ping_light, "texture_scale", MAX_TEXTURE_SCALE, EXPAND_DURATION)
 	tween.tween_property(ping_light, "energy", 0.0, EXPAND_DURATION)

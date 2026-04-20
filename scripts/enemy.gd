@@ -32,7 +32,7 @@ func _physics_process(delta: float) -> void:
 		State.ALERTED:
 			state = State.WALKING_TO_PING
 		State.WALKING_TO_PING:
-			ping_origin = player.global_position
+			if player: ping_origin = player.global_position
 			walk_timer += delta
 			if walk_timer >= WALK_TIMEOUT:
 				state = State.WAITING
